@@ -1,0 +1,11 @@
+# ChromaDB index (large, regenerable)
+.chroma/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# full data
+fulldata/
