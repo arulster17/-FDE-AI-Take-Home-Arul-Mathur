@@ -128,42 +128,20 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
 
 ## Vibe Coding Section
 
-### Tools used
+### Which AI coding tool(s) you used and how
 
-- **Claude Code** (Anthropic's CLI) - primary AI coding assistant throughout this project, running inside VS Code.
+Claude Code was the primary AI coding assistant throughout this project, which I used inside VS Code and occasionally through the terminal. I used this tool in a conversational session, and directed it step-by-step.
 
-### How the AI was directed
+### How you prompted or directed the AI — what worked, what did not
 
-<!-- NOTE: Fill this in with your own words after completing the project. Here are some prompts to guide you:
-  - How did the conversation start? (e.g. shared the assignment PDF, asked for a breakdown, then agreed on a plan)
-  - How did you move from architecture discussion to code generation?
-  - Did you prompt it with constraints ("use only one API key", "keep it simple") or let it propose freely?
-  - What did a typical back-and-forth look like - was it one shot or iterative?
--->
+I started by feeding Claude the assignment PDF and asking for a breakdown before touching any code. I then asked Claude to propose a file structure and tech stack, then reviewed and approved the plan. I also decided on additional constraints, such as avoiding API keys for ease of use, and sticking close to the assignment to keep Claude focused on the correct tasks. Once I was satisfied with the architecture and planning, I let the agent do a first pass of an implementation. From there, there was an iterative process of reviewing the code, asking questions or correcting the agent when needed, then testing again. I found that Claude worked best when I gave it clear constraints and instructions, rather than just letting it work freely. 
 
-### What worked well
+### Where you leaned on the AI vs. where you overrode or corrected it
 
-<!-- NOTE: Fill this in. Some things worth mentioning:
-  - How fast the scaffolding went once the architecture was agreed on
-  - Whether the AI caught edge cases you hadn't thought of (e.g. stdout/stderr separation for MCP stdio, batch encoding for performance)
-  - Any places where the generated code was production-quality on the first pass
--->
+After agreeing on the overall architecture and stack, Claude was able to generate all files quickly with good separation of concerns, so I didn't need to do much restructuring. The core RAG pipeline worked very well off the bat, and the generated code was readable and high enough quality that I could review and push it without much cleanup. I especially leaned on the AI to work with tools where I was not familiar with the documentation or had never used before.
 
-### Where I overrode or corrected the AI
-
-<!-- NOTE: Be honest here - this section is worth points. Examples to consider:
-  - Any design choices you changed after seeing the first draft
-  - Bugs or logic errors you caught before running
-  - Places where the AI was too clever or too verbose and you simplified it
-  - Cases where you made a different technology tradeoff than what was suggested
--->
+There were several times I had to override or course-correct the AI. Claude often tried to add unnecessary features, such as an additional list_documents tool or suppressing warnings by setting OS environment variables. The agent would also try to overengineer the tool itself by adding unnecessary parameters on the MCP server. Generating example interaction logs also needed several rounds of iteration, as there were many flaws in the examples/tests it tried to generate that had to be ironed out. I also overrode several of Claude's original tech stack decisions; most importantly, it initially proposed using the Anthropic API for the LLM, which I replaced with Ollama to eliminate the API key requirement. Finally, there would be several times where artifacts from previous versions of the tool would exist in the documentation or setup files, which I would have to catch and make sure Claude kept updated.
 
 ### Overall take on AI tooling for forward-deployed engineering
 
-<!-- NOTE: Write your genuine view. Some angles to consider:
-  - The speed advantage is real - scaffolding a working multi-file Python project in a single session is dramatically faster
-  - But the FDE value-add is in the *decisions*: which stack, what trade-offs, what the customer actually needs vs. what's technically interesting
-  - AI tools compress implementation time; they don't replace the judgment about *what* to build
-  - For customer-facing work, the README and the reasoning behind choices matter as much as the code - the AI can draft, but the engineer has to own it
-  - How would you use these tools differently when working directly with a customer vs. solo?
--->
+I think that the additional speed gained by using these AI tools was incredible; building a RAG and MCP system would have taken far longer without AI assistance, but with Claude it could be done in a single session. However, I felt that without very clear directions and a solid human plan, the agent could get off track and add extraneous or even incorrect features. I think that in a real-life scenario, this "overeagerness" to add additional functionality would actually do more harm than good, so I believe when using Claude and similar tools, one must treat them as implementers rather than decision-makers. However, when a human carefully defines the scope and architecture of the project and reviews the agent outputs carefully, these tools can produce high-quality code very quickly.
