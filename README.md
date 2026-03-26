@@ -149,4 +149,43 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
 
 
 ## Vibe Coding Section
-TODO
+
+### Tools used
+
+- **Claude Code** (Anthropic's CLI) — primary AI coding assistant throughout this project, running inside VS Code.
+
+### How the AI was directed
+
+<!-- NOTE: Fill this in with your own words after completing the project. Here are some prompts to guide you:
+  - How did the conversation start? (e.g. shared the assignment PDF, asked for a breakdown, then agreed on a plan)
+  - How did you move from architecture discussion to code generation?
+  - Did you prompt it with constraints ("use only one API key", "keep it simple") or let it propose freely?
+  - What did a typical back-and-forth look like — was it one shot or iterative?
+-->
+
+### What worked well
+
+<!-- NOTE: Fill this in. Some things worth mentioning:
+  - How fast the scaffolding went once the architecture was agreed on
+  - Whether the AI caught edge cases you hadn't thought of (e.g. stdout/stderr separation for MCP stdio, batch encoding for performance)
+  - Any places where the generated code was production-quality on the first pass
+-->
+
+### Where I overrode or corrected the AI
+
+<!-- NOTE: Be honest here — this section is worth points. Examples to consider:
+  - Any design choices you changed after seeing the first draft
+  - Bugs or logic errors you caught before running
+  - Places where the AI was too clever or too verbose and you simplified it
+  - Cases where you made a different technology tradeoff than what was suggested
+-->
+
+### Overall take on AI tooling for forward-deployed engineering
+
+<!-- NOTE: Write your genuine view. Some angles to consider:
+  - The speed advantage is real — scaffolding a working multi-file Python project in a single session is dramatically faster
+  - But the FDE value-add is in the *decisions*: which stack, what trade-offs, what the customer actually needs vs. what's technically interesting
+  - AI tools compress implementation time; they don't replace the judgment about *what* to build
+  - For customer-facing work, the README and the reasoning behind choices matter as much as the code — the AI can draft, but the engineer has to own it
+  - How would you use these tools differently when working directly with a customer vs. solo?
+-->
