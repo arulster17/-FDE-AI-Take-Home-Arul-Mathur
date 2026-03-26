@@ -2,7 +2,7 @@
 
 An MCP (Model Context Protocol) server that lets any MCP-compatible AI agent ask natural language questions over a collection of PDF documents and receive grounded answers with source citations.
 
-Built as part of the Nexla Forward Deployed Engineer – AI take-home assignment.
+Built as part of the Nexla Forward Deployed Engineer - AI take-home assignment.
 
 ---
 
@@ -23,14 +23,14 @@ ingest.py
 At query time:
       │
       ▼
-server.py  (FastMCP — stdio transport)
+server.py  (FastMCP - stdio transport)
   └── query_documents(question)
         ├── retriever.py
         │     ├── embed question (SentenceTransformers)
         │     └── cosine similarity search → top-5 chunks from ChromaDB
         └── llm.py
               ├── build prompt with retrieved chunks + citations
-              ├── Ollama (local LLM — llama3.2)
+              ├── Ollama (local LLM - llama3.2)
               └── return answer with [Source: file, Page N] inline citations
 ```
 
@@ -39,7 +39,7 @@ server.py  (FastMCP — stdio transport)
 - **Fully local, no API keys.** `all-MiniLM-L6-v2` embeds on CPU via sentence-transformers; Ollama runs the LLM locally. Zero cloud dependencies.
 - **Persist once, serve many.** ChromaDB writes to `.chroma/` on disk. The server checks for an existing index at startup; ingestion only runs when needed.
 - **Page-level metadata.** Every chunk carries its source filename and page number, so citations are always traceable to a specific location.
-- **One tool, one job.** `query_documents` is the single exposed tool — scoped exactly to what the assignment requires.
+- **One tool, one job.** `query_documents` is the single exposed tool - scoped exactly to what the assignment requires.
 
 ---
 
@@ -64,40 +64,21 @@ cd <repo-dir>
 pip install -r requirements.txt
 ```
 
-### 4. (Optional) Pre-build the index
+### 4. Connect an MCP client
 
-The server builds the index automatically on first run, but you can do it explicitly:
+The server works with any MCP-compatible client via stdio transport. How you start it depends on your client - most (Claude Code, Claude Desktop) launch it automatically from the registered command.
 
-```bash
-python ingest.py
-```
-
-This walks `data/`, parses every PDF with PyMuPDF, chunks the text, embeds it with `all-MiniLM-L6-v2`, and stores everything in `.chroma/`. Subsequent server starts reuse the persisted index.
-
-### 5. Run the MCP server
+Example using Claude Code:
 
 ```bash
-python server.py
+claude mcp add document-qa python "/absolute/path/to/server.py"
 ```
 
-The server speaks the MCP stdio protocol and is ready to be connected to any MCP-compatible client (Claude Desktop, Claude Code, etc.).
+Then start a new Claude Code session from the project directory.
 
-### 6. Connect via Claude Desktop (example)
+On first run the server will automatically ingest all PDFs in `data/` and build the ChromaDB index. Subsequent starts reuse the persisted index.
 
-Add this to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "document-qa": {
-      "command": "python",
-      "args": ["/absolute/path/to/server.py"]
-    }
-  }
-}
-```
-
-Ollama must be running locally (`ollama serve`) before starting the server.
+Ollama must be running before starting the server (`ollama serve` if it isn't already).
 
 ---
 
@@ -109,14 +90,14 @@ Ask a natural language question. The server retrieves the most relevant chunks f
 
 | | |
 |---|---|
-| **Input** | `question: str` — any natural language question |
+| **Input** | `question: str` - any natural language question |
 | **Output** | Answer with inline `[Source: filename, Page N]` citations |
 | **Multi-doc** | Retrieval searches across all indexed documents simultaneously |
 
 **Example queries:**
-- `"What is the main contribution of the EMNLP 2018 paper on mapping instructions to actions?"`
-- `"How did Bank of America perform financially in 2020?"`
-- `"What do the two NLP research papers have in common in their technical approach?"`
+- `"What is IBM's strategy for hybrid cloud and AI as described in their 2020 annual report?"`
+- `"How does the DeClarE system use web evidence to detect fake news?"`
+- `"How did ExxonMobil and IBM each describe the impact of COVID-19 on their business in 2020?"`
 
 ---
 
@@ -145,14 +126,11 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
 
 
 
-
-
-
 ## Vibe Coding Section
 
 ### Tools used
 
-- **Claude Code** (Anthropic's CLI) — primary AI coding assistant throughout this project, running inside VS Code.
+- **Claude Code** (Anthropic's CLI) - primary AI coding assistant throughout this project, running inside VS Code.
 
 ### How the AI was directed
 
@@ -160,7 +138,7 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
   - How did the conversation start? (e.g. shared the assignment PDF, asked for a breakdown, then agreed on a plan)
   - How did you move from architecture discussion to code generation?
   - Did you prompt it with constraints ("use only one API key", "keep it simple") or let it propose freely?
-  - What did a typical back-and-forth look like — was it one shot or iterative?
+  - What did a typical back-and-forth look like - was it one shot or iterative?
 -->
 
 ### What worked well
@@ -173,7 +151,7 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
 
 ### Where I overrode or corrected the AI
 
-<!-- NOTE: Be honest here — this section is worth points. Examples to consider:
+<!-- NOTE: Be honest here - this section is worth points. Examples to consider:
   - Any design choices you changed after seeing the first draft
   - Bugs or logic errors you caught before running
   - Places where the AI was too clever or too verbose and you simplified it
@@ -183,9 +161,9 @@ See [examples/interaction_log.md](examples/interaction_log.md) for sample querie
 ### Overall take on AI tooling for forward-deployed engineering
 
 <!-- NOTE: Write your genuine view. Some angles to consider:
-  - The speed advantage is real — scaffolding a working multi-file Python project in a single session is dramatically faster
+  - The speed advantage is real - scaffolding a working multi-file Python project in a single session is dramatically faster
   - But the FDE value-add is in the *decisions*: which stack, what trade-offs, what the customer actually needs vs. what's technically interesting
   - AI tools compress implementation time; they don't replace the judgment about *what* to build
-  - For customer-facing work, the README and the reasoning behind choices matter as much as the code — the AI can draft, but the engineer has to own it
+  - For customer-facing work, the README and the reasoning behind choices matter as much as the code - the AI can draft, but the engineer has to own it
   - How would you use these tools differently when working directly with a customer vs. solo?
 -->

@@ -1,5 +1,5 @@
 """
-llm.py — Send retrieved chunks + the user's question to a local Ollama model
+llm.py - Send retrieved chunks + the user's question to a local Ollama model
 and return a grounded answer with inline source citations.
 """
 

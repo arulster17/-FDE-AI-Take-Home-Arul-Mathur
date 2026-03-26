@@ -6,9 +6,9 @@ Sample queries run against the live server after ingesting the following 5 docum
 |---|---|
 | `NYSE_IBM_2020.pdf` | IBM 2020 Annual Report |
 | `NYSE_XOM_2020.pdf` | ExxonMobil 2020 Annual Report |
-| `Tab-2-INCSR-Vol-2-508.pdf` | US State Dept — International Narcotics Control Strategy Report Vol. II: Money Laundering (March 2020) |
+| `Tab-2-INCSR-Vol-2-508.pdf` | US State Dept - International Narcotics Control Strategy Report Vol. II: Money Laundering (March 2020) |
 | `FY-2020-Agency-Financial-Report.pdf` | US State Department FY2020 Agency Financial Report |
-| `D18-1003.pdf` | EMNLP 2018 — "DeClarE: Debunking Fake News and False Claims using Evidence-Aware Deep Learning" |
+| `D18-1003.pdf` | EMNLP 2018 - "DeClarE: Debunking Fake News and False Claims using Evidence-Aware Deep Learning" |
 
 ---
 
@@ -93,7 +93,7 @@ According to Source: D18-1003.pdf, Page 2, DeClarE searches for web articles rel
 
 ---
 
-## Query 6 — Multi-document
+## Query 6 - Multi-document
 
 **Tool:** `query_documents`
 **Question:** `"How did ExxonMobil and IBM each describe the impact of COVID-19 on their business in 2020?"`

@@ -1,5 +1,5 @@
 """
-retriever.py — Embed a query and fetch the top-k most relevant chunks
+retriever.py - Embed a query and fetch the top-k most relevant chunks
 from ChromaDB using cosine similarity.
 """
 
@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 
 from config import CHROMA_DIR, COLLECTION_NAME, EMBEDDING_MODEL, TOP_K
 
-# Module-level singletons — loaded once, reused across tool calls
+# Module-level singletons - loaded once, reused across tool calls
 _model: SentenceTransformer | None = None
 _collection = None
 
@@ -33,10 +33,10 @@ def retrieve(query: str, top_k: int = TOP_K) -> list[dict]:
     Return the top-k chunks most relevant to `query`.
 
     Each result dict contains:
-        text    — the raw chunk text
-        source  — filename of the source PDF
-        page    — page number within that PDF
-        score   — cosine similarity (higher = more relevant)
+        text    - the raw chunk text
+        source  - filename of the source PDF
+        page    - page number within that PDF
+        score   - cosine similarity (higher = more relevant)
     """
     model = _get_model()
     collection = _get_collection()

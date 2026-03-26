@@ -1,5 +1,5 @@
 """
-ingest.py — Parse all PDFs in DATA_DIR, chunk the text, embed with
+ingest.py - Parse all PDFs in DATA_DIR, chunk the text, embed with
 sentence-transformers, and persist to ChromaDB.
 
 Run directly to (re)build the index:
@@ -45,7 +45,7 @@ def ingest_pdfs(data_dir: Path = DATA_DIR) -> None:
         metadata={"hnsw:space": "cosine"},
     )
 
-    # Skip the assignment PDF itself — only ingest the data/ subdirectories
+    # Skip the assignment PDF itself - only ingest the data/ subdirectories
     pdf_files = [
         p for p in data_dir.rglob("*.pdf")
         if p.parent != Path(".")  # exclude root-level PDFs
@@ -98,7 +98,7 @@ def ingest_pdfs(data_dir: Path = DATA_DIR) -> None:
             )
 
     total = collection.count()
-    print(f"Ingestion complete — {total} chunks stored in ChromaDB", file=sys.stderr)
+    print(f"Ingestion complete - {total} chunks stored in ChromaDB", file=sys.stderr)
 
 
 if __name__ == "__main__":

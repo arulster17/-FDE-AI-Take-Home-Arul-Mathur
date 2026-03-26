@@ -1,5 +1,5 @@
 """
-server.py — FastMCP server exposing document Q&A over the provided PDFs.
+server.py - FastMCP server exposing document Q&A over the provided PDFs.
 
 Start the server (stdio transport, compatible with Claude Desktop / Claude Code):
     python server.py
@@ -32,9 +32,9 @@ def _index_ready() -> bool:
 
 def _ensure_index() -> None:
     if _index_ready():
-        print("ChromaDB index found — skipping ingestion.", file=sys.stderr)
+        print("ChromaDB index found - skipping ingestion.", file=sys.stderr)
         return
-    print("No index found — running ingestion (this may take a few minutes)…", file=sys.stderr)
+    print("No index found - running ingestion (this may take a few minutes)…", file=sys.stderr)
     from ingest import ingest_pdfs
     ingest_pdfs()
 
